@@ -4,6 +4,6 @@ public class Main {
         Furniture couch = new Furniture(4, 1, 'C');
 
         livingRoom.printLayout();
-        couch.printFurniture();
+
     }
 }

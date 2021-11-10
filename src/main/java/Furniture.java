@@ -40,4 +40,12 @@ public class Furniture {
     public char getIdentifier() {
         return identifier;
     }
+
+    public int getWidth() {
+        return size[0].length;
+    }
+
+    public int getLength() {
+        return size.length;
+    }
 }

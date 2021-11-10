@@ -1,14 +1,21 @@
-
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class Room {
     private char[][] layout;
+    private String doorLocation;
+    private Map<Furniture, Integer[]> map; // store data and locations of all furniture
 
     public Room(int x, int y) {
         if(x < 0 || y < 0) {
             throw new IllegalArgumentException("input cannot be less than zero");
         }
         layout = new char[y + 2][x + 2]; // add 2 to each to make room for walls
+        map = new HashMap<>();
         buildNewLayout();
+        buildNewDoor();
+
     }
 
     private void buildNewLayout() {
@@ -28,6 +35,49 @@ public class Room {
                     layout[i][j] = '.';
             }
         }
+    }
+
+    private void buildNewDoor() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose a side for the door:\n" +
+                            "1. North\n" +
+                            "2. East\n" +
+                            "3. South\n" +
+                            "4. West");
+
+        int side = scanner.nextInt();
+
+        switch(side) {
+            case 1:
+                layout[0][xAxisLength() / 2] = '*';
+                layout[0][xAxisLength() / 2 - 1] = '*';
+                doorLocation = "north";
+                break;
+            case 2:
+                layout[yAxisLength() / 2][xAxisLength() - 1] = '*';
+                layout[yAxisLength() / 2 - 1][xAxisLength() - 1] = '*';
+                doorLocation = "east";
+                break;
+            case 3:
+                layout[yAxisLength() - 1][xAxisLength() / 2] = '*';
+                layout[yAxisLength() - 1][xAxisLength() / 2] = '*';
+                doorLocation = "south";
+                break;
+            case 4:
+                layout[yAxisLength() / 2][0] = '*';
+                layout[yAxisLength() / 2 - 1][0] = '*';
+                doorLocation = "west";
+                break;
+        }
+    }
+
+    public void placeFurniture(Furniture furniture) {
+        if(furniture.getWidth() > xAxisLength() - 2 || furniture.getLength() > yAxisLength() - 2) {
+            System.out.println("Item is too large");
+            return;
+        }
+
     }
 
     public void printLayout() {
@@ -50,7 +100,13 @@ public class Room {
         System.out.println("Height: " + (layout.length - 2) + ", Width: " + (layout[0].length - 2));
     }
 
-    public void placeFurniture(Furniture furniture, int x, int y) {
-
+    private int xAxisLength() {
+        return layout[0].length;
     }
+
+    private int yAxisLength() {
+        return layout.length;
+    }
+
+
 }

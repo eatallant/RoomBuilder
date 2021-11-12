@@ -5,11 +5,12 @@ import java.util.Scanner;
 public class Room {
     private char[][] layout;
     private String doorLocation;
+    private int[] doorCoordinates;
     private Map<Furniture, Integer[]> map; // store data and locations of all furniture
 
     public Room(int x, int y) {
-        if(x < 0 || y < 0) {
-            throw new IllegalArgumentException("input cannot be less than zero");
+        if(x < 1 || y < 1) {
+            throw new IllegalArgumentException("Room cannot be less than 1x1");
         }
         layout = new char[y + 2][x + 2]; // add 2 to each to make room for walls
         map = new HashMap<>();
@@ -38,38 +39,58 @@ public class Room {
     }
 
     private void buildNewDoor() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Choose a side for the door:\n" +
-                            "1. North\n" +
-                            "2. East\n" +
-                            "3. South\n" +
-                            "4. West");
-
-        int side = scanner.nextInt();
+        int side = selectWall();
 
         switch(side) {
             case 1:
-                layout[0][xAxisLength() / 2] = '*';
-                layout[0][xAxisLength() / 2 - 1] = '*';
+                layout[0][1] = '*';
                 doorLocation = "north";
+                doorCoordinates = new int[]{0,1};
                 break;
             case 2:
-                layout[yAxisLength() / 2][xAxisLength() - 1] = '*';
-                layout[yAxisLength() / 2 - 1][xAxisLength() - 1] = '*';
+                layout[1][xAxisLength() - 1] = '*';
                 doorLocation = "east";
+                doorCoordinates = new int[]{1, xAxisLength() - 1};
                 break;
             case 3:
-                layout[yAxisLength() - 1][xAxisLength() / 2] = '*';
-                layout[yAxisLength() - 1][xAxisLength() / 2] = '*';
+                layout[yAxisLength() - 1][xAxisLength() - 2] = '*';
                 doorLocation = "south";
+                doorCoordinates = new int[]{yAxisLength() - 1, xAxisLength() - 2};
                 break;
             case 4:
-                layout[yAxisLength() / 2][0] = '*';
-                layout[yAxisLength() / 2 - 1][0] = '*';
+                layout[yAxisLength() - 2][0] = '*';
                 doorLocation = "west";
+                doorCoordinates = new int[]{yAxisLength() - 2, 0};
                 break;
         }
+    }
+
+    private int selectWall() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Choose a side for the door:\n" +
+                "1. North\n" +
+                "2. East\n" +
+                "3. South\n" +
+                "4. West");
+
+        int side = scanner.nextInt();
+
+        while(side < 1 || side > 4) {
+            System.out.print("Invalid choice. Enter a number from the menu: ");
+            side = scanner.nextInt();
+        }
+
+        return side;
+    }
+
+    public void moveDoor() {
+        if(doorLocation == "north" || doorLocation == "south") {
+            layout[doorCoordinates[0]][doorCoordinates[1]] = '-';
+        } else {
+            layout[doorCoordinates[0]][doorCoordinates[1]] = '|';
+        }
+        buildNewDoor();
     }
 
     public void placeFurniture(Furniture furniture) {

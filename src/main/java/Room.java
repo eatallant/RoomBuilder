@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Room {
-    private char[][] layout;
+    private final char[][] layout;
     private String doorLocation;
     private int[] doorCoordinates;
     private Map<Furniture, Integer[]> map; // store data and locations of all furniture
@@ -94,11 +94,47 @@ public class Room {
     }
 
     public void placeFurniture(Furniture furniture) {
-        if(furniture.getWidth() > xAxisLength() - 2 || furniture.getLength() > yAxisLength() - 2) {
+        if(furniture.isInRoom()) {
+            System.out.println("Item has already been placed in the room");
+            return;
+        } else if(furniture.getWidth() > xAxisLength() - 2 || furniture.getLength() > yAxisLength() - 2) {
             System.out.println("Item is too large");
             return;
         }
 
+        switch(doorLocation) {
+            case "north":
+                placeFurnitureNorth(furniture);
+                break;
+            case "east":
+                placeFurnitureEast(furniture);
+                break;
+            case "south":
+                placeFurnitureSouth(furniture);
+                break;
+            case "west":
+                placeFurnitureWest(furniture);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid door location");
+
+        }
+    }
+
+    private void placeFurnitureNorth(Furniture furniture) {
+        // needs implemented
+    }
+
+    private void placeFurnitureEast(Furniture furniture) {
+        // needs implemented
+    }
+
+    private void placeFurnitureSouth(Furniture furniture) {
+        // needs implemented
+    }
+
+    private void placeFurnitureWest(Furniture furniture) {
+        // needs implemented
     }
 
     public void printLayout() {

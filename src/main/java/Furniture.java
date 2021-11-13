@@ -4,10 +4,12 @@ public class Furniture {
     private char[][] size;
     private int[][] shape;
     private char identifier;
+    private boolean isInRoom;
 
     public Furniture(int x, int y, char identifier) {
         this.size = new char[y][x];
         this.identifier = identifier;
+        isInRoom = false;
         buildNewFurniture();
     }
 
@@ -47,5 +49,13 @@ public class Furniture {
 
     public int getLength() {
         return size.length;
+    }
+
+    public boolean isInRoom() {
+        return isInRoom;
+    }
+
+    public void setInRoom(boolean inRoom) {
+        isInRoom = inRoom;
     }
 }

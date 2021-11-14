@@ -4,6 +4,8 @@ import java.util.Scanner;
 public class Menu {
     private int currentMenu;
     private int[] menuArr;
+    private Room activeRoom;
+
 
     public Menu() {
         currentMenu = 0;
@@ -39,6 +41,12 @@ public class Menu {
                 break;
             case 5:
                 quit();
+                break;
+            case 6:
+                editRoomMenu();
+                break;
+            case 7:
+                changeActiveRoomMenu();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid menu");
@@ -79,7 +87,40 @@ public class Menu {
 
     // Menu 2
     public void manageRoomsMenu() {
-        // needs implemented
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println( "************\n" +
+                            "MANAGE ROOMS\n" +
+                            "************\n\n" +
+                            "Current Room: " + activeRoom + "\n" +
+                            "1. Edit room\n" + // menu 6
+                            "2. Change active room\n" + // menu 7
+                            "3. Main menu"); // menu 0
+        System.out.print("Make a selection: ");
+
+        int choice = scanner.nextInt();
+
+        switch (choice) {
+            case 1:
+                choice = 6;
+                break;
+            case 2:
+                choice = 7;
+                break;
+            case 3:
+                choice = 0;
+                break;
+        }
+
+        displayMenu(choice);
+
+        while(Arrays.binarySearch(menuArr, choice) < 1) {
+            System.out.print("Choose a number from the menu: ");
+            choice = scanner.nextInt();
+        }
+
+        currentMenu = choice;
+        displayCurrentMenu();
     }
 
     // Menu 3
@@ -95,5 +136,15 @@ public class Menu {
     // Menu 5
     public void quit() {
         System.exit(0);
+    }
+
+    // Menu 6
+    public void editRoomMenu() {
+        // needs implemented
+    }
+
+    // Menu 7
+    public void changeActiveRoomMenu() {
+
     }
 }

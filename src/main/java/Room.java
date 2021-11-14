@@ -137,6 +137,24 @@ public class Room {
         // needs implemented
     }
 
+    public void buildWindow(Window window) {
+        int wall = selectWall();
+
+        switch(wall) {
+            case 1: // north wall
+                // needs implemented
+            case 2: // east wall
+                // needs implemented
+            case 3: // south wall
+                // needs implemented
+            case 4: // west wall
+                // needs implemented
+            default:
+                throw new IllegalArgumentException("Invalid window location");
+
+        }
+    }
+
     public void printLayout() {
         for (char[] x : layout)
         {

@@ -1,12 +1,13 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Room {
     private final char[][] layout;
     private String doorLocation;
     private int[] doorCoordinates;
-    private Map<Furniture, Integer[]> map; // store data and locations of all furniture
+    private Map<Furniture, Integer[]> map; // store data and locations of all furniture (Not implemented yet)
 
     public Room(int x, int y) {
         if(x < 1 || y < 1) {
@@ -27,7 +28,7 @@ public class Room {
         for(int i = 0; i < columnLength; i++) {
             for(int j = 0; j < rowLength; j++) {
                 if((i == 0 || i == columnLength - 1) && (j == 0 || j == rowLength - 1)) // corner
-                        layout[i][j] = '+';
+                        layout[i][j] = '|';
                 else if((i == 0 || i == columnLength - 1) && (j != 0 && j != rowLength - 1)) // n/s wall
                     layout[i][j] = '-';
                 else if(j == 0 || j == rowLength - 1) // e/w wall
@@ -85,7 +86,7 @@ public class Room {
     }
 
     public void moveDoor() {
-        if(doorLocation == "north" || doorLocation == "south") {
+        if(Objects.equals(doorLocation, "north") || doorLocation == "south") {
             layout[doorCoordinates[0]][doorCoordinates[1]] = '-';
         } else {
             layout[doorCoordinates[0]][doorCoordinates[1]] = '|';
@@ -121,20 +122,84 @@ public class Room {
         }
     }
 
+
+    // There might be a better algorithm that uses the door location to determine placement.
     private void placeFurnitureNorth(Furniture furniture) {
-        // needs implemented
+
+        // Check area around door for other furniture
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                if(layout[doorCoordinates[1] + i][doorCoordinates[0] + 1 + j] != '.') {
+                    System.out.println("Something is in the way! Make sure the door has enough room around it to fit this item");
+                    return;
+                }
+            }
+        }
+
+        // Replace '.' char with furniture identifier
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                layout[doorCoordinates[1] + i][doorCoordinates[0] + 1 + j] = furniture.getIdentifier();
+            }
+        }
+
     }
 
     private void placeFurnitureEast(Furniture furniture) {
-        // needs implemented
+        // Check area around door for other furniture
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                if(layout[doorCoordinates[0] + i][doorCoordinates[1] - 1 - j] != '.') {
+                    System.out.println("Something is in the way! Make sure the door has enough room around it to fit this item");
+                    return;
+                }
+            }
+        }
+
+        // Replace '.' char with furniture identifier
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                layout[doorCoordinates[0] + i][doorCoordinates[1] - 1 - j] = furniture.getIdentifier();
+            }
+        }
     }
 
     private void placeFurnitureSouth(Furniture furniture) {
-        // needs implemented
+        // Check area around door for other furniture
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                if(layout[doorCoordinates[0] - 1 - i][doorCoordinates[1] - j] != '.') {
+                    System.out.println("Something is in the way! Make sure the door has enough room around it to fit this item");
+                    return;
+                }
+            }
+        }
+
+        // Replace '.' char with furniture identifier
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                layout[doorCoordinates[0] - 1 - i][doorCoordinates[1] - j] = furniture.getIdentifier();
+            }
+        }
     }
 
     private void placeFurnitureWest(Furniture furniture) {
-        // needs implemented
+        // Check area around door for other furniture
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                if(layout[doorCoordinates[0] + i][doorCoordinates[1] + 1 + j] != '.') {
+                    System.out.println("Something is in the way! Make sure the door has enough room around it to fit this item");
+                    return;
+                }
+            }
+        }
+
+        // Replace '.' char with furniture identifier
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                layout[doorCoordinates[0] + i][doorCoordinates[1] + 1 + j] = furniture.getIdentifier();
+            }
+        }
     }
 
     public void buildWindow(Window window) {

@@ -38,7 +38,6 @@ public class Furniture {
         }
     }
 
-
     public char getIdentifier() {
         return identifier;
     }

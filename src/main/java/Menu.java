@@ -9,7 +9,7 @@ public class Menu {
 
     public Menu() {
         currentMenu = 0;
-        menuArr = new int[]{0, 1, 2, 3, 4, 5};
+        menuArr = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
     }
 
     public static void run() {

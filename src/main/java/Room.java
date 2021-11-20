@@ -120,6 +120,8 @@ public class Room {
                 throw new IllegalArgumentException("Invalid door location");
 
         }
+
+        furniture.placedInRoom();
     }
 
 
@@ -221,6 +223,7 @@ public class Room {
     }
 
     public void printLayout() {
+        System.out.println();
         for (char[] x : layout)
         {
             for (char y : x)
@@ -229,6 +232,7 @@ public class Room {
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     // return dimensions of room

@@ -54,7 +54,11 @@ public class Furniture {
         return isInRoom;
     }
 
-    public void setInRoom(boolean inRoom) {
-        isInRoom = inRoom;
+    public void placedInRoom() {
+        isInRoom = true;
+    }
+
+    public void removedFromRoom() {
+        isInRoom = false;
     }
 }

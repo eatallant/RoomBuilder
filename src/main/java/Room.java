@@ -86,7 +86,7 @@ public class Room {
     }
 
     public void moveDoor() {
-        if(Objects.equals(doorLocation, "north") || doorLocation == "south") {
+        if(Objects.equals(doorLocation, "north") || Objects.equals(doorLocation, "south")) {
             layout[doorCoordinates[0]][doorCoordinates[1]] = '-';
         } else {
             layout[doorCoordinates[0]][doorCoordinates[1]] = '|';
@@ -260,7 +260,7 @@ public class Room {
         Scanner scanner = new Scanner(System.in);
 
         // get size of window
-        int sizeLimit = 0;
+        int sizeLimit;
         int sizeChosen = 0;
 
         if(wall == 1 || wall == 3)  // north/south wall

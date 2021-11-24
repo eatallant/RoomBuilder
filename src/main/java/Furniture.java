@@ -2,8 +2,7 @@ import java.util.Scanner;
 
 public class Furniture {
     private char[][] size;
-    private int[][] shape;
-    private char identifier;
+    private final char identifier;
     private boolean isInRoom;
 
     public Furniture(int x, int y, char identifier) {

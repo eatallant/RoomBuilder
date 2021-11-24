@@ -203,9 +203,43 @@ public class Room {
             }
         }
     }
+    public void moveFurniture() {
+        Scanner scanner = new Scanner(System.in);
+        char choice = 'a';
+        System.out.println("Move furniture with WASD key followed by Enter. Enter Q when finished.");
+
+        while(choice != 'q') {
+            choice = scanner.next().charAt(0);
+            choice = Character.toLowerCase(choice); // lowercase the input
+            switch(choice) {
+                case 'w':
+                    moveFurnitureUpDown(-1); // move up
+                    break;
+                case 's':
+                    moveFurnitureUpDown(1); // move down
+                    break;
+                case 'a':
+                    moveFurnitureLeftRight(-1); // move left
+                    break;
+                case 'd':
+                    moveFurnitureLeftRight(1); // move right
+                    break;
+            }
+        }
+
+    }
+    private void moveFurnitureUpDown(int distance) {
+        // needs implemented. furniture location map needed
+    }
+
+    private void moveFurnitureLeftRight(int distance) {
+        // needs implemented. furniture location map needed
+    }
+
 
     public void buildWindow(Window window) {
         int wall = selectWall();
+        int size = selectWindowSize(wall);
 
         switch(wall) {
             case 1: // north wall
@@ -220,6 +254,38 @@ public class Room {
                 throw new IllegalArgumentException("Invalid window location");
 
         }
+    }
+
+    private int selectWindowSize(int wall) {
+        Scanner scanner = new Scanner(System.in);
+
+        // get size of window
+        int sizeLimit = 0;
+        int sizeChosen = 0;
+
+        if(wall == 1 || wall == 3)  // north/south wall
+            sizeLimit = xAxisLength() - 2;
+        else                        // east/west wall
+            sizeLimit = yAxisLength() - 2;
+
+        System.out.println("Choose a size for the window. must be less than " + sizeLimit);
+        System.out.print("Enter size: ");
+
+        try {
+            while(sizeChosen < 1 || sizeChosen > sizeLimit ) {
+                sizeChosen = scanner.nextInt();
+            }
+
+        } catch (Exception e) {
+            System.out.println("Invalid input");
+        }
+
+        return sizeChosen;
+
+    }
+
+    private void moveWindow() {
+        // needs implemented
     }
 
     public void printLayout() {

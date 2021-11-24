@@ -4,7 +4,7 @@ public class Main {
         //Menu.run(); // Menu object menuInstance created automatically
         Room testRoom = new Room(20,10);
 
-        Furniture sofa = new Furniture(4,2,'S');
+        Furniture sofa = new Furniture("sofa", 4,2,'S');
         testRoom.placeFurniture(sofa);
         testRoom.printLayout();
 //
@@ -13,6 +13,7 @@ public class Main {
 //        testRoom.printLayout();
 
         testRoom.placeFurniture(sofa);
+        testRoom.moveFurniture(sofa);
 
 
     }

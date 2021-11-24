@@ -14,6 +14,7 @@ public class Menu {
 
     public static void run() {
         Menu menuInstance = new Menu();
+        Inventory inventory = new Inventory(); // create furniture inventory
         menuInstance.displayCurrentMenu();
     }
 

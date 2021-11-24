@@ -203,7 +203,7 @@ public class Room {
             }
         }
     }
-    public void moveFurniture() {
+    public void moveFurniture(Furniture furniture) {
         Scanner scanner = new Scanner(System.in);
         char choice = 'a';
         System.out.println("Move furniture with WASD key followed by Enter. Enter Q when finished.");
@@ -213,26 +213,26 @@ public class Room {
             choice = Character.toLowerCase(choice); // lowercase the input
             switch(choice) {
                 case 'w':
-                    moveFurnitureUpDown(-1); // move up
+                    moveFurnitureUpDown(furniture, -1); // move up
                     break;
                 case 's':
-                    moveFurnitureUpDown(1); // move down
+                    moveFurnitureUpDown(furniture, 1); // move down
                     break;
                 case 'a':
-                    moveFurnitureLeftRight(-1); // move left
+                    moveFurnitureLeftRight(furniture, -1); // move left
                     break;
                 case 'd':
-                    moveFurnitureLeftRight(1); // move right
+                    moveFurnitureLeftRight(furniture, 1); // move right
                     break;
             }
         }
 
     }
-    private void moveFurnitureUpDown(int distance) {
+    private void moveFurnitureUpDown(Furniture furniture, int distance) {
         // needs implemented. furniture location map needed
     }
 
-    private void moveFurnitureLeftRight(int distance) {
+    private void moveFurnitureLeftRight(Furniture furniture, int distance) {
         // needs implemented. furniture location map needed
     }
 
@@ -317,6 +317,7 @@ public class Room {
     private int yAxisLength() {
         return layout.length;
     }
+
 
 
 }

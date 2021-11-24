@@ -1,11 +1,14 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Furniture {
+    private String name;
     private char[][] size;
     private final char identifier;
     private boolean isInRoom;
 
-    public Furniture(int x, int y, char identifier) {
+    public Furniture(String name, int x, int y, char identifier) {
+        this.name = name;
         this.size = new char[y][x];
         this.identifier = identifier;
         isInRoom = false;
@@ -37,6 +40,10 @@ public class Furniture {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     public char getIdentifier() {
         return identifier;
     }
@@ -59,5 +66,15 @@ public class Furniture {
 
     public void removedFromRoom() {
         isInRoom = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Furniture{" +
+                "name='" + name + '\'' +
+                ", size=" + Arrays.toString(size) +
+                ", identifier=" + identifier +
+                ", isInRoom=" + isInRoom +
+                '}';
     }
 }

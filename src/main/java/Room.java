@@ -7,7 +7,7 @@ public class Room {
     private final char[][] layout;
     private String doorLocation;
     private int[] doorCoordinates;
-    private Map<Furniture, Integer[]> map; // store data and locations of all furniture (Not implemented yet)
+    private final Map<Furniture, Integer[]> map; // store data and top left coordinate of all furniture
 
     public Room(int x, int y) {
         if(x < 1 || y < 1) {
@@ -236,6 +236,10 @@ public class Room {
         // needs implemented. furniture location map needed
     }
 
+    private void mapFurniture(Furniture furniture, int row, int column) {
+        map.put(furniture, new Integer[] {row, column});
+    }
+
 
     public void buildWindow(Window window) {
         int wall = selectWall();
@@ -317,7 +321,5 @@ public class Room {
     private int yAxisLength() {
         return layout.length;
     }
-
-
 
 }

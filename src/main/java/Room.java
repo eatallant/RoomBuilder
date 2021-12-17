@@ -103,17 +103,22 @@ public class Room {
             return;
         }
 
+
         switch(doorLocation) {
             case "north":
+                mapFurniture(furniture, 1, 1);
                 placeFurnitureNorth(furniture);
                 break;
             case "east":
+                mapFurniture(furniture, 1, yAxisLength() - 2);
                 placeFurnitureEast(furniture);
                 break;
             case "south":
+                mapFurniture(furniture, xAxisLength() - 2, 1);
                 placeFurnitureSouth(furniture);
                 break;
             case "west":
+                mapFurniture(furniture, xAxisLength() - 2, yAxisLength() - 2);
                 placeFurnitureWest(furniture);
                 break;
             default:
@@ -229,12 +234,48 @@ public class Room {
 
     }
     private void moveFurnitureUpDown(Furniture furniture, int distance) {
-        // needs implemented. furniture location map needed
+
+        Integer[] newLocation = map.get(furniture);
+        newLocation[0] = newLocation[0] + distance;
+
+        if(renderNewLocation(furniture, newLocation)) {
+            printLayout();
+        } else {
+            System.out.println("There is something in the way.");
+        }
     }
 
     private void moveFurnitureLeftRight(Furniture furniture, int distance) {
-        // needs implemented. furniture location map needed
+
+        Integer[] newLocation = map.get(furniture);
+        newLocation[1] = newLocation[1] + distance;
+
+        if(renderNewLocation(furniture, newLocation)) {
+            printLayout();
+        } else {
+            System.out.println("There is something in the way.");
+        }
     }
+
+    private boolean isSpaceAvailable(Furniture furniture, Integer[] topLeftCoordinate) {
+        // each new coordinate must be empty space or furniture.getIdentifier()
+
+        return true;
+    }
+
+    private boolean renderNewLocation(Furniture furniture, Integer[] topLeftCoordinate) {
+        if(isSpaceAvailable(furniture, topLeftCoordinate)) {
+            // clear out this furniture
+
+            // rebuild starting at top left coordinate
+
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     private void mapFurniture(Furniture furniture, int row, int column) {
         map.put(furniture, new Integer[] {row, column});
@@ -308,6 +349,11 @@ public class Room {
     // return dimensions of room
     public int[] getDimensions() {
         return new int[] {layout.length - 2, layout[0].length - 2};
+    }
+
+    public void printTopLeftCoordinate(Furniture furniture) {
+        Integer[] arr = map.get(furniture);
+        System.out.println(arr[0] + ", " + arr[1]);
     }
 
     public void printDimensions() {

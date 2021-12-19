@@ -107,11 +107,11 @@ public class Room {
                 placeFurnitureNorth(furniture);
                 break;
             case "east":
-                mapFurniture(furniture, 1, yAxisLength() - 2);
+                mapFurniture(furniture, xAxisLength() - 1 - furniture.getWidth(), 1);
                 placeFurnitureEast(furniture);
                 break;
             case "south":
-                mapFurniture(furniture, xAxisLength() - 2, 1);
+                mapFurniture(furniture, xAxisLength() - 1 - furniture.getWidth(), yAxisLength() - 2);
                 placeFurnitureSouth(furniture);
                 break;
             case "west":
@@ -245,7 +245,7 @@ public class Room {
     private void moveFurnitureLeftRight(Furniture furniture, int distance) {
 
         Integer[] currentTopLeft = map.get(furniture);
-        Integer[] newTopLeft = new Integer[]{currentTopLeft[0], currentTopLeft[1] + distance};
+        Integer[] newTopLeft = new Integer[]{currentTopLeft[0] + distance, currentTopLeft[1]};
 
         if(renderNewLocation(furniture, newTopLeft)) {
             printLayout();
@@ -258,7 +258,6 @@ public class Room {
         // each new coordinate must be empty space '.' or furniture.getIdentifier()
         for(int i = 0; i < furniture.getLength(); i++) {
             for(int j = 0; j < furniture.getWidth(); j++) {
-                System.out.println(layout[(topLeftCoordinate[1] + i)][(topLeftCoordinate[0] + j)]);
                 if(layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] != '.' && layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] != furniture.getIdentifier())
                     return false;
             }
@@ -272,7 +271,6 @@ public class Room {
             Integer[] currentTopLeft = map.get(furniture);
             int x = currentTopLeft[0];
             int y = currentTopLeft[1];
-            System.out.println(x + ", " + y);
             char identifier = furniture.getIdentifier();
             for(int i = 0; i < furniture.getLength(); i++) {
                 for(int j = 0; j < furniture.getWidth(); j++) {
@@ -295,8 +293,8 @@ public class Room {
 
 
 
-    private void mapFurniture(Furniture furniture, int row, int column) {
-        map.put(furniture, new Integer[] {row, column});
+    private void mapFurniture(Furniture furniture, int column, int row) {
+        map.put(furniture, new Integer[] {column, row});
     }
 
 

@@ -8,9 +8,12 @@ public class Main {
 
         Room livingRoom = new Room(20, 10);
 
+        livingRoom.printLayout();
         livingRoom.placeFurniture(sofa);
-
+        livingRoom.printLayout();
         livingRoom.printTopLeftCoordinate(sofa);
+        livingRoom.moveFurniture(sofa);
+
 
     }
 }

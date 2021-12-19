@@ -1,13 +1,10 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Room {
     private final char[][] layout;
     private String doorLocation;
     private int[] doorCoordinates;
-    private final Map<Furniture, Integer[]> map; // store data and top left coordinate of all furniture
+    private final Map<Furniture, Integer[/* x,y */]> map; // store data and top left coordinate of all furniture
 
     public Room(int x, int y) {
         if(x < 1 || y < 1) {
@@ -235,10 +232,10 @@ public class Room {
     }
     private void moveFurnitureUpDown(Furniture furniture, int distance) {
 
-        Integer[] newLocation = map.get(furniture);
-        newLocation[0] = newLocation[0] + distance;
+        Integer[] currentTopLeft = map.get(furniture);
+        Integer[] newTopLeft = new Integer[]{currentTopLeft[0], currentTopLeft[1] + distance};
 
-        if(renderNewLocation(furniture, newLocation)) {
+        if(renderNewLocation(furniture, newTopLeft)) {
             printLayout();
         } else {
             System.out.println("There is something in the way.");
@@ -247,10 +244,10 @@ public class Room {
 
     private void moveFurnitureLeftRight(Furniture furniture, int distance) {
 
-        Integer[] newLocation = map.get(furniture);
-        newLocation[1] = newLocation[1] + distance;
+        Integer[] currentTopLeft = map.get(furniture);
+        Integer[] newTopLeft = new Integer[]{currentTopLeft[0], currentTopLeft[1] + distance};
 
-        if(renderNewLocation(furniture, newLocation)) {
+        if(renderNewLocation(furniture, newTopLeft)) {
             printLayout();
         } else {
             System.out.println("There is something in the way.");
@@ -258,17 +255,38 @@ public class Room {
     }
 
     private boolean isSpaceAvailable(Furniture furniture, Integer[] topLeftCoordinate) {
-        // each new coordinate must be empty space or furniture.getIdentifier()
-
+        // each new coordinate must be empty space '.' or furniture.getIdentifier()
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                System.out.println(layout[(topLeftCoordinate[1] + i)][(topLeftCoordinate[0] + j)]);
+                if(layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] != '.' && layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] != furniture.getIdentifier())
+                    return false;
+            }
+        }
         return true;
     }
 
     private boolean renderNewLocation(Furniture furniture, Integer[] topLeftCoordinate) {
         if(isSpaceAvailable(furniture, topLeftCoordinate)) {
             // clear out this furniture
-
+            Integer[] currentTopLeft = map.get(furniture);
+            int x = currentTopLeft[0];
+            int y = currentTopLeft[1];
+            System.out.println(x + ", " + y);
+            char identifier = furniture.getIdentifier();
+            for(int i = 0; i < furniture.getLength(); i++) {
+                for(int j = 0; j < furniture.getWidth(); j++) {
+                    layout[(y + i)][(x + j)] = '.';
+                }
+            }
             // rebuild starting at top left coordinate
+            for(int i = 0; i < furniture.getLength(); i++) {
+                for(int j = 0; j < furniture.getWidth(); j++) {
+                    layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] = identifier;
+                }
+            }
 
+            setTopLeftCoordinate(furniture, topLeftCoordinate[0], topLeftCoordinate[1]);
             return true;
         }
 
@@ -354,6 +372,12 @@ public class Room {
     public void printTopLeftCoordinate(Furniture furniture) {
         Integer[] arr = map.get(furniture);
         System.out.println(arr[0] + ", " + arr[1]);
+    }
+
+    public void setTopLeftCoordinate(Furniture furniture, int x, int y) {
+        Integer[] newTopLeft = map.get(furniture);
+        newTopLeft[0] = x;
+        newTopLeft[1] = y;
     }
 
     public void printDimensions() {

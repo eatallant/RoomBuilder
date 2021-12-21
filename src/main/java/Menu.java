@@ -9,7 +9,7 @@ public class Menu {
 
     public Menu() {
         currentMenu = 0;
-        menuArr = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+        menuArr = new int[]{0, 1, 2, 3, 4, 5, 6};
     }
 
     public static void run() {
@@ -45,9 +45,6 @@ public class Menu {
                 break;
             case 6:
                 editRoomMenu();
-                break;
-            case 7:
-                changeActiveRoomMenu();
                 break;
             default:
                 throw new IllegalArgumentException("Invalid menu");
@@ -144,8 +141,4 @@ public class Menu {
         // needs implemented
     }
 
-    // Menu 7
-    public void changeActiveRoomMenu() {
-
-    }
 }

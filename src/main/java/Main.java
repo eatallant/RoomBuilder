@@ -14,6 +14,7 @@ public class Main {
         livingRoom.printTopLeftCoordinate(sofa);
         livingRoom.moveFurniture(sofa);
 
-
+        livingRoom.removeFurniture(sofa);
+        livingRoom.printLayout();
     }
 }

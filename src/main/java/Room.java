@@ -115,7 +115,7 @@ public class Room {
                 placeFurnitureSouth(furniture);
                 break;
             case "west":
-                mapFurniture(furniture, xAxisLength() - 2, yAxisLength() - 2);
+                mapFurniture(furniture, 1, yAxisLength() - 2);
                 placeFurnitureWest(furniture);
                 break;
             default:
@@ -268,19 +268,12 @@ public class Room {
     private boolean renderNewLocation(Furniture furniture, Integer[] topLeftCoordinate) {
         if(isSpaceAvailable(furniture, topLeftCoordinate)) {
             // clear out this furniture
-            Integer[] currentTopLeft = map.get(furniture);
-            int x = currentTopLeft[0];
-            int y = currentTopLeft[1];
-            char identifier = furniture.getIdentifier();
-            for(int i = 0; i < furniture.getLength(); i++) {
-                for(int j = 0; j < furniture.getWidth(); j++) {
-                    layout[(y + i)][(x + j)] = '.';
-                }
-            }
+            removeFurniture(furniture);
+
             // rebuild starting at top left coordinate
             for(int i = 0; i < furniture.getLength(); i++) {
                 for(int j = 0; j < furniture.getWidth(); j++) {
-                    layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] = identifier;
+                    layout[topLeftCoordinate[1] + i][topLeftCoordinate[0] + j] = furniture.getIdentifier();
                 }
             }
 
@@ -291,7 +284,17 @@ public class Room {
         return false;
     }
 
-
+    public void removeFurniture(Furniture furniture) {
+        Integer[] currentTopLeft = map.get(furniture);
+        int x = currentTopLeft[0];
+        int y = currentTopLeft[1];
+        char identifier = furniture.getIdentifier();
+        for(int i = 0; i < furniture.getLength(); i++) {
+            for(int j = 0; j < furniture.getWidth(); j++) {
+                layout[(y + i)][(x + j)] = '.';
+            }
+        }
+    }
 
     private void mapFurniture(Furniture furniture, int column, int row) {
         map.put(furniture, new Integer[] {column, row});

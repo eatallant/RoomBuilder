@@ -1,5 +1,7 @@
 import java.util.*;
 
+// functions involved in moving furniture may be making this class to complex.
+// I might want to separate these into a Mover class
 public class Room {
     private final char[][] layout;
     private String doorLocation;
@@ -370,6 +372,7 @@ public class Room {
         return new int[] {layout.length - 2, layout[0].length - 2};
     }
 
+    // used for testing
     public void printTopLeftCoordinate(Furniture furniture) {
         Integer[] arr = map.get(furniture);
         System.out.println(arr[0] + ", " + arr[1]);
@@ -381,6 +384,7 @@ public class Room {
         newTopLeft[1] = y;
     }
 
+    // used for testing
     public void printDimensions() {
         System.out.println("Height: " + (layout.length - 2) + ", Width: " + (layout[0].length - 2));
     }

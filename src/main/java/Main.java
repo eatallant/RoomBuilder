@@ -5,6 +5,7 @@ public class Main {
 
         //Menu.run();
         Furniture sofa = new Furniture("Sofa", 5, 1, '$');
+        Furniture table = new Furniture("Table", 3, 2, '+');
 
         Room livingRoom = new Room(20, 10);
 
@@ -13,8 +14,8 @@ public class Main {
         livingRoom.printLayout();
         livingRoom.printTopLeftCoordinate(sofa);
         livingRoom.moveFurniture(sofa);
+        livingRoom.placeFurniture(table);
+        livingRoom.moveFurniture(table);
 
-        livingRoom.removeFurniture(sofa);
-        livingRoom.printLayout();
     }
 }

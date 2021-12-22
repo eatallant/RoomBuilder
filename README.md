@@ -9,4 +9,3 @@ Use the command line to create and edit a top down view of a room, with the abil
 Items left to complete before program is usable:
 - Menu class
 - Inventory class
-- Furniture movement functions in Room class

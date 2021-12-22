@@ -12,7 +12,7 @@ public class Room {
         if(x < 1 || y < 1) {
             throw new IllegalArgumentException("Room cannot be less than 1x1");
         }
-        layout = new char[y + 2][x + 2]; // add 2 to each to make room for walls
+        layout = new char[y + 2][x + 2]; // add 2 to make room for walls
         map = new HashMap<>();
         buildNewLayout();
         buildNewDoor();

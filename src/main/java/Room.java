@@ -272,6 +272,9 @@ public class Room {
             // clear out this furniture
             removeFurniture(furniture);
 
+            // furniture isn't being permanently removed, so reset isInRoom property to true
+            furniture.placedInRoom();
+
             // rebuild starting at top left coordinate
             for(int i = 0; i < furniture.getLength(); i++) {
                 for(int j = 0; j < furniture.getWidth(); j++) {
@@ -296,6 +299,8 @@ public class Room {
                 layout[(y + i)][(x + j)] = '.';
             }
         }
+
+        furniture.removedFromRoom();
     }
 
     private void mapFurniture(Furniture furniture, int column, int row) {

@@ -1,9 +1,8 @@
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Furniture {
-    private String name;
-    private char[][] size;
+    private final String name;
+    private final char[][] size;
     private final char identifier;
     private boolean isInRoom;
 
@@ -23,11 +22,6 @@ public class Furniture {
         }
     }
 
-    public void furnitureDesigner() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Current representation of piece " + identifier + ": ");
-        printFurniture();
-    }
 
     public void printFurniture() {
         for (char[] x : size)

@@ -8,5 +8,5 @@ Objects require the appropriate space to move, so space planning is needed for m
 Storage is not built into this command line app. All data is destroyed on exit.
 
 
-***In Progress***
+***This repository is no longer being updated***
 
